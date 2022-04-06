@@ -207,15 +207,16 @@ def process_journal(
 
             # Add date as page header, removing time if it's 12 midday as time obviously not read
             new_entry.append(
-                "## {icon}{date}\n".format(
+                "#### {icon}{date}\n".format(
                     icon=date_icon,
-                    date=local_date.strftime("%A, %-d %B %Y at %H:%M").replace(" at 12:00 PM", "")
+                    date=local_date.strftime("%H:%M:%S").replace(" at 12:00 PM", "")
                 )
             )
 
             # Add body text if it exists (can have the odd blank entry), after some tidying up
             try:
                 new_text = entry["text"].replace("\\", "")
+                new_text = new_text.replace("#", "###")
                 new_text = new_text.replace("\u2028", "\n")
                 new_text = new_text.replace("\u1C6A", "\n\n")
                 new_text = new_text.replace("\u200b", "")
@@ -329,13 +330,14 @@ def process_journal(
 
             # Start Metadata section
 
-            # newEntry.append( '%%\n' ) # uncomment to hide metadata
-            new_entry.append("\n\n---\n")
-            new_entry.append("### Metadata\n")
+            new_entry.append("\n\n---")
+            new_entry.append( '\n%%\n' ) # uncomment to hide metadata
+            new_entry.append("#### Metadata\n")
             for name, description in metadata:
                 new_entry.append(f"- {name}:: {description}\n")
+            new_entry.append( '%%\n' ) 
 
-            # Save entries organised by year, year-month, year-month-day.md
+            # Save entries organized by year, year-month, year-month-day.md
             year_dir = journal_folder / str(creation_date.year)
             month_dir = year_dir / creation_date.strftime("%Y-%m")
 
