@@ -6,17 +6,17 @@ from pathlib import Path
 @click.argument("folder", type=click.Path(exists=True, file_okay=False))
 @click.option('-v', '--verbose', count=True)
 @click.option('--icons/--no-icons', help="Use Obsidian icons plugin", default=False)
-@click.option('--yaml/--no-yaml', help="Add a YAML frontmatter", default=True)
+@click.option('--yaml/--no-yaml', help="Add a YAML frontmatter", default=False)
 @click.option(
     '--convert-links',
     help="Replace DayOne internal links with Obsidian [[links]]",
-    default=False,
+    default=True,
     is_flag=True
 )
 @click.option(
     "--tags-prefix",
     help="Prefix to add as part of the tag name for sub-tags",
-    default="#journal/",
+    default="#",
 )
 @click.option(
     '--tags-as-links',
@@ -34,12 +34,12 @@ from pathlib import Path
     '--merge-entries',
     help="Combine entries with the same date in a single file",
     is_flag=True,
-    default=False,
+    default=True,
 )
 @click.option(
     '--entries-separator', '-sep',
     help="String to use to separate merged entries",
-    default="---\n---",
+    default="\n\n",
 )
 def convert(verbose, icons, tags_prefix, folder, convert_links, tags_as_links, yaml, status_tag, merge_entries, entries_separator):
     """Converts DayOne entries into markdown files suitable to use as an Obsidian vault.
