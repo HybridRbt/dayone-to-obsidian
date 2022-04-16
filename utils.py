@@ -207,7 +207,7 @@ def process_journal(
 
             # Add date as page header, removing time if it's 12 midday as time obviously not read
             new_entry.append(
-                "#### {icon}{date}\n".format(
+                "## {icon}{date}\n".format(
                     icon=date_icon,
                     date=local_date.strftime("%H:%M:%S").replace(" at 12:00 PM", "")
                 )
@@ -364,7 +364,7 @@ def process_journal(
                         target_file = month_dir / f"{file_date_format}{chr(index)}.md"
                 else:
                     prev_entry, _ = entries.pop(target_file.stem)
-                    new_entry = prev_entry + [f'\n\n{entries_separator}\n\n'] + new_entry
+                    new_entry = prev_entry + [f'{entries_separator}'] + new_entry
             
             # Add current entry's as a new key-value pair in entries dict
             entries[target_file.stem] = new_entry, target_file
