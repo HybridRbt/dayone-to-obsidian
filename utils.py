@@ -216,7 +216,7 @@ def process_journal(
             # Add body text if it exists (can have the odd blank entry), after some tidying up
             try:
                 new_text = entry["text"].replace("\\", "")
-                new_text = new_text.replace("#", "###")
+                new_text = new_text.replace("# ", "### ")
                 new_text = new_text.replace("\u2028", "\n")
                 new_text = new_text.replace("\u1C6A", "\n\n")
                 new_text = new_text.replace("\u200b", "")
